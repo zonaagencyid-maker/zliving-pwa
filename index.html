@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Z Living Garden - PWA Mini</title>
+<title>Z Living Garden - PWA</title>
 
 <link rel="manifest" href="manifest.json" />
 <meta name="theme-color" content="#1e1e1e" />
@@ -18,29 +18,52 @@
         align-items: center;
         height: 100vh;
         font-family: Arial, sans-serif;
+        text-align: center;
     }
     .loading {
-        text-align: center;
         max-width: 300px;
     }
-    a {
-        color: #00e0ff;
+    #msg {
+        opacity: 0.7;
+        font-size: 14px;
     }
 </style>
-
 </head>
 <body>
-    <div class="loading">
-        <h2>PWA Mini Berhasil Dimuat</h2>
-        <p>Silakan cek manifest & service worker.</p>
-        <p><b>Link ke website utama:</b></p>
-        <a href="https://zlivinggarden.ct.ws/">Masuk ke Website Utama</a>
-    </div>
+
+<div class="loading">
+    <h2>Memuat Aplikasi...</h2>
+    <p id="msg">Sedang mempersiapkan aplikasi...</p>
+</div>
 
 <script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("service-worker.js");
+    // Pastikan service worker ter-register dulu
+    async function initApp() {
+        if ("serviceWorker" in navigator) {
+            try {
+                await navigator.serviceWorker.register("service-worker.js");
+
+                // Tunggu sedikit agar manifest & SW benar-benar terbaca
+                setTimeout(() => {
+                    document.getElementById("msg").innerText = "Mengalihkan ke Website Utama...";
+                    
+                    // Redirect aman
+                    window.location.href = "https://zlivinggarden.ct.ws/";
+                }, 1200);
+
+            } catch (e) {
+                // Jika SW gagal, tetap redirect setelah delay
+                setTimeout(() => {
+                    window.location.href = "https://zlivinggarden.ct.ws/";
+                }, 1000);
+            }
+        } else {
+            // Browser tidak support SW → tetap redirect
+            window.location.href = "https://zlivinggarden.ct.ws/";
+        }
     }
+
+    initApp();
 </script>
 
 </body>
