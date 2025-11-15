@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Z Living Garden</title>
+
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#1e1e1e" />
+
+<style>
+    body {
+        margin: 0;
+        background: #1e1e1e;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+    }
+    .loading {
+        text-align: center;
+    }
+</style>
+
+<script>
+    // Redirect otomatis ke halaman utama
+    setTimeout(() => {
+        window.location.href = "https://zlivinggarden.ct.ws/";
+    }, 800);
+</script>
+</head>
+<body>
+    <div class="loading">
+        <h2>Memuat Z Living Garden...</h2>
+    </div>
+
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
+    }
+</script>
+</body>
+</html>
